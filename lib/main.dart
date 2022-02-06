@@ -1,11 +1,14 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cryptowallet/pages/sign_in/sign_in_page.dart';
 import 'package:cryptowallet/pages/welcome_page.dart';
-import 'package:cryptowallet/injection.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  configureDependencies();
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -1,13 +1,7 @@
-import 'package:cryptowallet/application/auth/sign_in_form/bloc/sign_in_form_bloc.dart';
 import 'package:cryptowallet/pages/sign_in/widgets/sign_in_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../injection.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,10 +33,7 @@ class SignInPage extends StatelessWidget {
                   children: <Widget>[
                     Image.asset('assets/images/login.png'),
                     Expanded(
-                      child: BlocProvider(
-                        create: (_) => getIt<SignInFormBloc>(),
-                        child: SignInForm(),
-                      ),
+                      child: SignInForm(),
                     ),
                   ],
                 ),

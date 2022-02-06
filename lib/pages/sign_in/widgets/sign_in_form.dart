@@ -1,196 +1,240 @@
-import 'package:cryptowallet/application/auth/sign_in_form/bloc/sign_in_form_bloc.dart';
-import 'package:cryptowallet/domain/core/value_validators.dart';
-import 'package:cryptowallet/infrastructure/auth/auth_failure_or_success.dart';
-import 'package:cryptowallet/pages/sign_up/sign_up_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_const_literals_to_create_immutables
 
-class SignInForm extends StatelessWidget {
+import 'package:cryptowallet/pages/sign_in/homescreen.dart';
+import 'package:cryptowallet/pages/sign_up/sign_up_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+
+class SignInForm extends StatefulWidget {
   const SignInForm({Key? key}) : super(key: key);
 
   @override
+  _SignInFormState createState() => _SignInFormState();
+}
+
+class _SignInFormState extends State<SignInForm> {
+  //formKey
+  final _formKey = GlobalKey<FormState>();
+
+  // editing controller
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
+
+  // firebase
+  final _auth = FirebaseAuth.instance;
+
+  // string for displaying the error Message
+  String? errorMessage;
+
+  // void _showButtonPressDialog(BuildContext context, String provider) {
+  //   Scaffold.of(context).showSnackBar(SnackBar(
+  //     content: Text('$provider Button Pressed!'),
+  //     backgroundColor: Colors.black26,
+  //     duration: Duration(milliseconds: 400),
+  //   ));
+  // }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignInFormBloc, SignInFormState>(
-      listener: (context, state) {
-        if (state.authFailureOrSuccess == AuthFailureOrSuccess.success()) {
-          showInSnackBar(
-              context,
-              SnackBar(
-                backgroundColor: Colors.blue,
-                content: Text('Success'),
-              ));
-        } else if (state.authFailureOrSuccess ==
-            AuthFailureOrSuccess.emailAlreadyInUse()) {
-          showInSnackBar(
-              context,
-              SnackBar(
-                backgroundColor: Colors.red,
-                content: Text('Email Already In Use'),
-              ));
-        } else if (state.authFailureOrSuccess ==
-            AuthFailureOrSuccess.invalidEmailAndPassword()) {
-          showInSnackBar(
-              context,
-              SnackBar(
-                backgroundColor: Colors.blue,
-                content: Text('Invalid Email And Password'),
-              ));
-        } else if (state.authFailureOrSuccess ==
-            AuthFailureOrSuccess.serverError()) {
-          showInSnackBar(
-              context,
-              SnackBar(
-                backgroundColor: Colors.red,
-                content: Text('Server Error'),
-              ));
-        }
-      },
-      builder: (context, state) {
-        return Container(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 30,
-            bottom: 50,
-          ),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20),
-              topLeft: Radius.circular(20),
-            ),
-          ),
-          child: Form(
-            autovalidate: state.showErrorMessages,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Container(
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 30,
+        bottom: 50,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(20),
+          topLeft: Radius.circular(20),
+        ),
+      ),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.email),
-                        labelText: 'Email Address',
-                      ),
-                      autocorrect: false,
-                      autofocus: false,
-                      onChanged: (value) =>
-                          BlocProvider.of<SignInFormBloc>(context)
-                              .add(SignInFormEvent.emailChange(value)),
-                      validator: (_) => validateEmailAddress(
-                              BlocProvider.of<SignInFormBloc>(context)
-                                  .state
-                                  .emailAddress)
-                          ? null
-                          : "Invalid Email",
+                // email Field
+                TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.email),
+                    labelText: 'Email Address',
+                  ),
+                  autocorrect: false,
+                  autofocus: false,
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return ("Please Enter your Email");
+                    }
+                    //reg expression for email validation
+                    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                        .hasMatch(value)) {
+                      return ("Please Enter your valid Email");
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    emailController.text = value!;
+                  },
+                  textInputAction: TextInputAction.next,
+                ),
+                // password Field
+                TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    labelText: 'Password',
+                  ),
+                  autocorrect: false,
+                  autofocus: false,
+                  controller: passwordController,
+                  obscureText: true,
+                  validator: (value) {
+                    RegExp regex = new RegExp(r'^.{6,}$');
+
+                    if (value!.isEmpty) {
+                      return ("Please Enter your password");
+                    }
+                    if (!regex.hasMatch(value)) {
+                      return ("Please Enter a valid password(Min. 6 Character)");
+                    }
+                  },
+                  onSaved: (value) {
+                    passwordController.text = value!;
+                  },
+                  textInputAction: TextInputAction.done,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: <Widget>[
+                //     const Text(
+                //       'Forget your password?',
+                //       style: TextStyle(
+                //         color: Color(0xff347af0),
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+              ],
+            ),
+            // ignore: deprecated_member_use
+            Column(
+              children: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    // FocusScope.of(context).unfocus();
+                    signIn(emailController.text, passwordController.text);
+                  },
+                  color: const Color(0xff347af0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18),
+                    side: const BorderSide(
+                      color: Color(0xff347af0),
                     ),
-                    TextFormField(
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          labelText: 'Password',
-                        ),
-                        autocorrect: false,
-                        autofocus: false,
-                        obscureText: true,
-                        onChanged: (value) =>
-                            BlocProvider.of<SignInFormBloc>(context)
-                                .add(SignInFormEvent.passwordChange(value)),
-                        validator: (_) => validatePassword(
-                                BlocProvider.of<SignInFormBloc>(context)
-                                    .state
-                                    .password)
-                            ? null
-                            : 'Short Password'),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: <Widget>[
-                        const Text(
-                          'Forget your password?',
-                          style: TextStyle(
-                            color: Color(0xff347af0),
-                            fontWeight: FontWeight.bold,
+                  ),
+                  child: Container(
+                    width: 160,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      'Doesn\'t have an account?',
+                      style: TextStyle(
+                        color: Color(0xff485068),
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return SignUpPage();
+                            },
                           ),
+                        );
+                      },
+                      child: const Text(
+                        ' Sign Up?',
+                        style: TextStyle(
+                          color: Color(0xff347af0),
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
-                // ignore: deprecated_member_use
-                Column(
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                    // height: 2,
+                    thickness: 1,
+                    color: Color(0xff347af0),
+                    endIndent: 0.0),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    FlatButton(
+                    SignInButton(
+                      Buttons.Google,
                       onPressed: () {
-                        FocusScope.of(context).unfocus();
-                        BlocProvider.of<SignInFormBloc>(context)
-                            .add(SignInFormEvent.signInWithEmailAndPassword());
+                        // _showButtonPressDialog(context, 'Google');
                       },
-                      color: const Color(0xff347af0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
-                        side: const BorderSide(
-                          color: Color(0xff347af0),
-                        ),
-                      ),
-                      child: Container(
-                        width: 160,
-                        height: 40,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: <Widget>[
-                        const Text(
-                          'Dont\'t have an account?',
-                          style: TextStyle(
-                            color: Color(0xff485068),
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return SignUpPage();
-                                },
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Sign Up?',
-                            style: TextStyle(
-                              color: Color(0xff347af0),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ],
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 
-  void showInSnackBar(BuildContext context, Widget snackBar) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: snackBar));
+// login function
+  void signIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+                Fluttertoast.showToast(msg: "Succesfully logged In.."),
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => HomeScreen())),
+              })
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+    }
   }
 }

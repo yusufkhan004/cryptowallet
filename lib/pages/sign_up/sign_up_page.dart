@@ -10,12 +10,19 @@ class SignUpPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Color(0xffe0e9f8),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color(0xff347af0)),
+          onPressed: () {
+            // passing to the root page
+            Navigator.of(context).pop();
+          },
+        ),
         title: const Center(
           child: Text(
             'Create account',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 24,
+              fontSize: 22,
               fontWeight: FontWeight.w500,
             ),
           ),
