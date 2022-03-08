@@ -1,15 +1,15 @@
 class UserModel {
   String? uid;
-  String? name;
+  String? displayName;
   String? email;
 
-  UserModel({this.uid, this.name, this.email});
+  UserModel({this.uid, this.displayName, this.email});
 
   // data from the firebase
   factory UserModel.fromMap(map) {
     return UserModel(
       uid: map['uid'],
-      name: map['name'],
+      displayName: map['displayName'],
       email: map['email'],
     );
   }
@@ -18,7 +18,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
-      'name': name,
+      'displayName': displayName,
       'email': email,
     };
   }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">390181821838-g8a770ofvgfk22u4igc1sa0cnnd8kptm.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">390181821838</string>
+    <string name="google_api_key" translatable="false">AIzaSyBLHnUxIGU14O7nsItD9UdVake2F4zMICc</string>
+    <string name="google_app_id" translatable="false">1:390181821838:android:fadefb0ed8eecc3cf818df</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBLHnUxIGU14O7nsItD9UdVake2F4zMICc</string>
+    <string name="google_storage_bucket" translatable="false">crypto-wallet-2c2db.appspot.com</string>
+    <string name="project_id" translatable="false">crypto-wallet-2c2db</string>
+</resources>

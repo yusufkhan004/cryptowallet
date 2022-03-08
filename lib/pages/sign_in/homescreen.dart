@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   User? user = FirebaseAuth.instance.currentUser;
-  UserModel loggedInUser = UserModel();
 
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
@@ -23,18 +22,18 @@ class _HomeScreenState extends State<HomeScreen> {
         .pushReplacement(MaterialPageRoute(builder: (context) => SignInPage()));
   }
 
-  @override
-  void initState() {
-    super.initState();
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(user!.uid)
-        .get()
-        .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
-      setState(() {});
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   FirebaseFirestore.instance
+  //       .collection("users")
+  //       .doc(user!.uid)
+  //       .get()
+  //       .then((value) {
+  //     this.loggedInUser = UserModel.fromMap(value.data());
+  //     setState(() {});
+  //   });
+  // }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,14 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 10,
                 ),
                 Text(
-                  "${loggedInUser.name}",
+                  "${user!.displayName}",
                   style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
-                  "${loggedInUser.email}",
+                  "${user!.email}",
                   style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.w500,

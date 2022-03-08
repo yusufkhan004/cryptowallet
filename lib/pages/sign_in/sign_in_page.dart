@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cryptowallet/pages/sign_in/widgets/sign_in_form.dart';
 import 'package:flutter/material.dart';
 
@@ -10,11 +12,11 @@ class SignInPage extends StatelessWidget {
         backgroundColor: Color(0xffe0e9f8),
         title: const Center(
           child: Text(
-            'Welcome Back',
+            'Crypto Wallet',
             style: TextStyle(
               color: Colors.black,
               fontSize: 24,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -23,9 +25,9 @@ class SignInPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-          color: const Color(0xffe0e9f8),
+          color: Color(0xffe0e9f8),
           child: CustomScrollView(
-            reverse: true,
+            // reverse: true,
             slivers: [
               SliverFillRemaining(
                 hasScrollBody: false,
