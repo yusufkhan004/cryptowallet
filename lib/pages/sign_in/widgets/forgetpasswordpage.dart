@@ -40,7 +40,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         ),
       );
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      // print(e.message);
       Navigator.of(context).pop();
       Scaffold.of(context).showSnackBar(
         SnackBar(

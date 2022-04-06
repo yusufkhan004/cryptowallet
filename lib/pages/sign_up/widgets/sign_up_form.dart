@@ -33,7 +33,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
 
-  Future signUp(String email, String password) async {
+  Future signUp(String username, String email, String password) async {
     // showDialog(
     //   context: context,
     //   barrierDismissible: false,
@@ -44,7 +44,7 @@ class _SignUpFormState extends State<SignUpForm> {
       await _auth
           .createUserWithEmailAndPassword(
               email: email.trim(), password: password.trim())
-          .then((value) => {postDetailsToFirestore()})
+          .then((value) => {postDetailsToFirestore(username)})
           .catchError((e) {
         Scaffold.of(context).showSnackBar(
           SnackBar(
@@ -63,32 +63,32 @@ class _SignUpFormState extends State<SignUpForm> {
       });
     }
   }
+//   Future<void> saveUserInfoToFirestore() async {
+//     var firebaseUser = auth.FirebaseAuth.instance.currentUser;
+//     DocumentSnapshot documentSnapshot =
+//         await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).get();
 
-  postDetailsToFirestore() async {
+//     if (!documentSnapshot.exists) {
+//       //final profileName = await Navigator.push(context, MaterialPageRoute(builder: (context) => SignupPage()));
+//       FirebaseFirestore.instance.collection("users").doc(firebaseUser.uid).set({
+//         "uid": firebaseUser.uid,
+//         "profileName": displayName,
+//         "email": firebaseUser.email,
+//       }).then((_) => print('Success'));
+//       documentSnapshot = await FirebaseFirestore.instance
+//           .collection('users')
+//           .doc(firebaseUser.uid)
+//           .get();
+//     }
+//     currentUser = Users.fromDocument(documentSnapshot); //currentUser is the instance of Users model class
+//   }
+// }
+
+  postDetailsToFirestore(String username) async {
     // calling a firestore
     // calling user model
     // sending these value
 
-    // loader with text
-    // BuildContext dialogContext;
-    // showDialog(
-    //   context: context,
-    //   barrierDismissible: false,
-    //   builder: (BuildContext context) {
-    //     dialogContext = context;
-    //     return Dialog(
-    //       child: Center(
-    //         child: Row(
-    //           mainAxisSize: MainAxisSize.min,
-    //           children: [
-    //             CircularProgressIndicator(),
-    //             Text("Loading.."),
-    //           ],
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // );
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -98,12 +98,20 @@ class _SignUpFormState extends State<SignUpForm> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
-    UserModel userModel = UserModel();
+    UserModel userModel = UserModel(
+      displayName: username,
+      uid: user!.uid,
+      email: user.email,
+      phone: "",
+      image: _imageFile,
+      aboutMeDescription: "",
+    );
 
     // writing all values
-    userModel.uid = user!.uid;
-    userModel.displayName = displayNameEditingController.text;
-    userModel.email = user.email;
+
+    // userModel.uid = user!.uid;
+    // userModel.displayName = displayNameEditingController.text;
+    // userModel.email = user.email;
 
     await firebaseFirestore
         .collection("users")
@@ -133,7 +141,7 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  PickedFile? _imageFile;
+  Uri? _imageFile;
   bool _load = false;
   final ImagePicker _picker = ImagePicker();
 
@@ -142,7 +150,7 @@ class _SignUpFormState extends State<SignUpForm> {
       source: source,
     );
     setState(() {
-      _imageFile = pickedFile!;
+      _imageFile = pickedFile! as Uri?;
       _load = false;
     });
   }
@@ -266,9 +274,9 @@ class _SignUpFormState extends State<SignUpForm> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    displayNameEditingController.text = value!.trim();
-                  },
+                  // onSaved: (value) {
+                  //   displayNameEditingController.text = value!;
+                  // },
                   textInputAction: TextInputAction.next,
                 ),
                 TextFormField(
@@ -364,8 +372,11 @@ class _SignUpFormState extends State<SignUpForm> {
             Column(children: <Widget>[
               FlatButton(
                 onPressed: () {
-                  signUp(emailEditingController.text,
+                  signUp(
+                      displayNameEditingController.text,
+                      emailEditingController.text,
                       passwordEditingController.text);
+                  dispose();
                 },
                 color: const Color(0xff347af0),
                 shape: RoundedRectangleBorder(

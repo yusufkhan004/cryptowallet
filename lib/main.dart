@@ -2,12 +2,21 @@
 
 // import 'package:cryptowallet/livecryptostream/services/ably_services.dart';
 // import 'package:cryptowallet/livecryptostream/view/dashboard.dart';
+import 'package:cryptowallet/pages/coin_tracker/cointrackerpages/cointracker.dart';
+import 'package:cryptowallet/pages/coin_tracker/constants/Themes.dart';
+import 'package:cryptowallet/pages/coin_tracker/provider/marketprovider.dart';
+import 'package:cryptowallet/pages/home/homepage.dart';
+import 'package:cryptowallet/pages/profile_body/pages/edit_name.dart';
+import 'package:cryptowallet/pages/profile_body/profile.dart';
 import 'package:cryptowallet/pages/sign_in/sign_in_page.dart';
 import 'package:cryptowallet/pages/sign_up/widgets/email_verification.dart';
 import 'package:cryptowallet/pages/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
+
+import 'pages/sign_in/homescreen.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -24,15 +33,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Titillium'),
-      // home: WelcomePage(),
-      home: SignInPage(),
-      // home: EmailVerification(),
-      // home: EmailVerification(),
-      // home: DashboardView(),
-      // home: SignInPage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MarketProvider>(
+          create: (context) => MarketProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(fontFamily: 'Titillium'),
+        // home: WelcomePage(),
+        // home: SignInPage(),
+        home:HomePage(),
+        // home: EmailVerification(),
+        // home: DashboardView(),
+        // home: CoinTrackerScreen(),
+        // home: HomeScreen(),
+        // home: Profile()
+        // home: EditNameFormPage(),
+      ),
     );
+
+    // );
   }
 }

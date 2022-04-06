@@ -18,6 +18,7 @@ MERGED from [:url_launcher_android] D:\a Desktop folders\cryptowallet\build\url_
 MERGED from [:path_provider_android] D:\a Desktop folders\cryptowallet\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:better_player] D:\a Desktop folders\cryptowallet\build\better_player\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:wakelock] D:\a Desktop folders\cryptowallet\build\wakelock\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences_android] D:\a Desktop folders\cryptowallet\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:video_player] D:\a Desktop folders\cryptowallet\build\video_player\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:fluttertoast] D:\a Desktop folders\cryptowallet\build\fluttertoast\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:google_sign_in] D:\a Desktop folders\cryptowallet\build\google_sign_in\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
@@ -283,6 +284,8 @@ MERGED from [:better_player] D:\a Desktop folders\cryptowallet\build\better_play
 MERGED from [:better_player] D:\a Desktop folders\cryptowallet\build\better_player\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:wakelock] D:\a Desktop folders\cryptowallet\build\wakelock\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:wakelock] D:\a Desktop folders\cryptowallet\build\wakelock\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] D:\a Desktop folders\cryptowallet\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] D:\a Desktop folders\cryptowallet\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:video_player] D:\a Desktop folders\cryptowallet\build\video_player\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:video_player] D:\a Desktop folders\cryptowallet\build\video_player\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:fluttertoast] D:\a Desktop folders\cryptowallet\build\fluttertoast\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44

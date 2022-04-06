@@ -105,7 +105,7 @@ class _SignInFormState extends State<SignInForm> {
       padding: const EdgeInsets.only(
         left: 20,
         right: 20,
-        top: 30,
+        top: 10,
         bottom: 50,
       ),
       decoration: BoxDecoration(

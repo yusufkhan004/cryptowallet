@@ -22,6 +22,7 @@ class SignInPage extends StatelessWidget {
         ),
         bottomOpacity: 0.0,
         elevation: 0.0,
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: Container(
