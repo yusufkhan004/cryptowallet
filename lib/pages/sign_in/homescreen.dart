@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cryptowallet/model/user_model.dart';
 import 'package:cryptowallet/pages/coin_tracker/cointrackerpages/coins.dart';
 import 'package:cryptowallet/pages/coin_tracker/cointrackerpages/cointracker.dart';
-import 'package:cryptowallet/pages/home/homepage.dart';
 import 'package:cryptowallet/pages/profile_body/profile.dart';
 import 'package:cryptowallet/pages/sign_in/sign_in_page.dart';
 import 'package:cryptowallet/pages/sign_in/widgets/navigate_page.dart';
@@ -19,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
   int _currentIndex = 0;
   final List<Widget> tabs = [
     Center(child: Text("Home")),
@@ -52,12 +50,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: IndexedStack(
           index: _currentIndex,
           children: <Widget>[
-            HomePage(),
+            NavigatorPage(
+              child: Text('home', style: TextStyle(color: Colors.black)),
+            ),
             CoinTrackerScreen(),
             Profile(),
-            // NavigatorPage(
-            //   child: Text('Profile', style: TextStyle(color: Colors.black)),
-            // ),
           ],
         ),
       ),
