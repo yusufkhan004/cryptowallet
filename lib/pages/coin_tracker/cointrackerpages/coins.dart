@@ -1,4 +1,4 @@
-import 'package:cryptowallet/pages/coin_tracker/cointrackerpages/details_page.dart';
+// import 'package:cryptowallet/pages/coin_tracker/cointrackerpages/details_page.dart';
 import 'package:cryptowallet/pages/coin_tracker/models/cryptocurrency.dart';
 import 'package:cryptowallet/pages/coin_tracker/provider/marketprovider.dart';
 import 'package:cryptowallet/pages/coin_tracker/widgets/CryptoListTile.dart';

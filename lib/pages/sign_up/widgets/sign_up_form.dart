@@ -28,12 +28,14 @@ class _SignUpFormState extends State<SignUpForm> {
   bool isEmailVerified = false;
 
 // editing controller
-  final displayNameEditingController = TextEditingController();
+  final nameEditingController = TextEditingController();
+  final usernameEditingController = TextEditingController();
   final emailEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
 
-  Future signUp(String username, String email, String password) async {
+  Future signUp(
+      String name, String username, String email, String password) async {
     // showDialog(
     //   context: context,
     //   barrierDismissible: false,
@@ -44,7 +46,7 @@ class _SignUpFormState extends State<SignUpForm> {
       await _auth
           .createUserWithEmailAndPassword(
               email: email.trim(), password: password.trim())
-          .then((value) => {postDetailsToFirestore(username)})
+          .then((value) => {postDetailsToFirestore(name, username)})
           .catchError((e) {
         Scaffold.of(context).showSnackBar(
           SnackBar(
@@ -59,32 +61,13 @@ class _SignUpFormState extends State<SignUpForm> {
             content: Text(e!.message),
           ),
         );
+        dispose();
         // Fluttertoast.showToast(msg: e!.message);
       });
     }
   }
-//   Future<void> saveUserInfoToFirestore() async {
-//     var firebaseUser = auth.FirebaseAuth.instance.currentUser;
-//     DocumentSnapshot documentSnapshot =
-//         await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).get();
 
-//     if (!documentSnapshot.exists) {
-//       //final profileName = await Navigator.push(context, MaterialPageRoute(builder: (context) => SignupPage()));
-//       FirebaseFirestore.instance.collection("users").doc(firebaseUser.uid).set({
-//         "uid": firebaseUser.uid,
-//         "profileName": displayName,
-//         "email": firebaseUser.email,
-//       }).then((_) => print('Success'));
-//       documentSnapshot = await FirebaseFirestore.instance
-//           .collection('users')
-//           .doc(firebaseUser.uid)
-//           .get();
-//     }
-//     currentUser = Users.fromDocument(documentSnapshot); //currentUser is the instance of Users model class
-//   }
-// }
-
-  postDetailsToFirestore(String username) async {
+  postDetailsToFirestore(String name, String username) async {
     // calling a firestore
     // calling user model
     // sending these value
@@ -99,7 +82,8 @@ class _SignUpFormState extends State<SignUpForm> {
     User? user = _auth.currentUser;
 
     UserModel userModel = UserModel(
-      displayName: username,
+      name: name,
+      username: username,
       uid: user!.uid,
       email: user.email,
       phone: "",
@@ -110,7 +94,7 @@ class _SignUpFormState extends State<SignUpForm> {
     // writing all values
 
     // userModel.uid = user!.uid;
-    // userModel.displayName = displayNameEditingController.text;
+    // userModel.username = usernameEditingController.text;
     // userModel.email = user.email;
 
     await firebaseFirestore
@@ -262,7 +246,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     labelText: 'Name',
                   ),
                   autofocus: false,
-                  controller: displayNameEditingController,
+                  controller: nameEditingController,
                   validator: (value) {
                     RegExp regex = RegExp(r'^.{6,}$');
 
@@ -275,7 +259,30 @@ class _SignUpFormState extends State<SignUpForm> {
                     return null;
                   },
                   // onSaved: (value) {
-                  //   displayNameEditingController.text = value!;
+                  //   usernameEditingController.text = value!;
+                  // },
+                  textInputAction: TextInputAction.next,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.account_circle_sharp),
+                    labelText: 'Username',
+                  ),
+                  autofocus: false,
+                  controller: usernameEditingController,
+                  validator: (value) {
+                    RegExp regex = RegExp(r'^.{6,}$');
+
+                    if (value!.isEmpty) {
+                      return ("Name cannot be empty");
+                    }
+                    if (value.length < 3) {
+                      return ("Please Enter the name of min 3 characters");
+                    }
+                    return null;
+                  },
+                  // onSaved: (value) {
+                  //   usernameEditingController.text = value!;
                   // },
                   textInputAction: TextInputAction.next,
                 ),
@@ -373,10 +380,10 @@ class _SignUpFormState extends State<SignUpForm> {
               FlatButton(
                 onPressed: () {
                   signUp(
-                      displayNameEditingController.text,
+                      nameEditingController.text,
+                      usernameEditingController.text,
                       emailEditingController.text,
                       passwordEditingController.text);
-                  dispose();
                 },
                 color: const Color(0xff347af0),
                 shape: RoundedRectangleBorder(
@@ -434,7 +441,8 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   void dispose() {
-    displayNameEditingController.clear();
+    nameEditingController.clear();
+    usernameEditingController.clear();
     emailEditingController.clear();
     passwordEditingController.clear();
     confirmPasswordEditingController.clear();

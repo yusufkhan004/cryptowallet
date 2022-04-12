@@ -30,7 +30,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
     FirebaseFirestore.instance
         .collection('users')
         .doc(mainUser!.uid)
-        .update({'displayName': name});
+        .update({'name': name});
   }
 
   @override
@@ -51,7 +51,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                 SizedBox(
                     width: 330,
                     child: const Text(
-                      "Edit Your Username",
+                      "Edit Your Name",
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               // Handles Form Validation for First Name
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter your Username';
+                                  return 'Please enter your Name';
                                 } else if (value.contains("[a-zA-Z]+") ==
                                     true) {
                                   return 'Only Letters Please';
@@ -78,7 +78,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                  labelText: 'Enter your new Username'),
+                                  labelText: 'Enter your new Name'),
                               controller: NameController,
                             ))),
                   ],

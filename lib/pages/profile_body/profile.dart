@@ -7,6 +7,7 @@ import 'package:cryptowallet/pages/profile_body/pages/edit_description.dart';
 import 'package:cryptowallet/pages/profile_body/pages/edit_email.dart';
 import 'package:cryptowallet/pages/profile_body/pages/edit_image.dart';
 import 'package:cryptowallet/pages/profile_body/pages/edit_name.dart';
+import 'package:cryptowallet/pages/profile_body/pages/edit_username.dart';
 import 'package:cryptowallet/pages/profile_body/pages/edit_phone.dart';
 // import 'package:cryptowallet/pages/profile_body/user/user.dart';
 // import 'package:cryptowallet/pages/profile_body/user/user_data.dart';
@@ -36,8 +37,15 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffe0e9f8),
-        title: Text("Profile", style: TextStyle(color: Colors.black)),
+        // backgroundColor: Color(0xffe0e9f8),
+        backgroundColor: Colors.white,
+        title: Text("Profile",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 24.0,
+            )),
+        elevation: 0,
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -70,26 +78,39 @@ class _ProfileState extends State<Profile> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Username',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff347af0),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, bottom: 3),
+                                    child: Text(
+                                      'Name',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xff347af0),
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
                                     height: 1,
                                   ),
                                   Container(
-                                    width: 350,
-                                    height: 40,
+                                    height: 50,
                                     decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                      color: Colors.grey,
-                                      width: 1,
-                                    ))),
+                                        color: Color(0xffe0e9f8),
+                                        borderRadius: BorderRadius.circular(20),
+                                        shape: BoxShape.rectangle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 3.0,
+                                          ),
+                                        ]),
+                                    margin:
+                                        EdgeInsets.only(left: 15, right: 15),
+                                    // padding: EdgeInsets.all(20),
+                                    width:
+                                        MediaQuery.of(context).size.width * 1.0,
+
                                     child: Row(
                                       children: [
                                         Expanded(
@@ -100,12 +121,81 @@ class _ProfileState extends State<Profile> {
                                             },
                                             child: Center(
                                               child: Text(
-                                                snapshot.data!["displayName"],
+                                                snapshot.data!["name"],
                                                 style: TextStyle(
-                                                  fontSize: 16,
+                                                  fontSize: 18,
                                                   height: 1.4,
                                                   color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
+                                                  // fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.keyboard_arrow_right,
+                                          color: Color(0xff347af0),
+                                          size: 40.0,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, bottom: 3),
+                                    child: Text(
+                                      'Username',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xff347af0),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 1,
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffe0e9f8),
+                                        borderRadius: BorderRadius.circular(20),
+                                        shape: BoxShape.rectangle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 3.0,
+                                          ),
+                                        ]),
+                                    margin:
+                                        EdgeInsets.only(left: 15, right: 15),
+                                    // padding: EdgeInsets.all(20),
+                                    width:
+                                        MediaQuery.of(context).size.width * 1.0,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextButton(
+                                            onPressed: () {
+                                              navigateSecondPage(
+                                                  EditUsernameFormPage());
+                                            },
+                                            child: Center(
+                                              child: Text(
+                                                snapshot.data!["username"],
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  height: 1.4,
+                                                  color: Colors.black,
+                                                  // fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                             ),
@@ -123,33 +213,44 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
 
-                            SizedBox(
-                              height: 15,
-                            ),
+                            // SizedBox(
+                            //   height: 15,
+                            // ),
                             Padding(
                                 padding: EdgeInsets.only(bottom: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Email Id',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xff347af0),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 3),
+                                      child: Text(
+                                        'Email Id',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff347af0),
+                                        ),
                                       ),
                                     ),
                                     Container(
-                                      width: 350,
-                                      height: 40,
+                                      height: 50,
                                       decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                            color: Colors.grey,
-                                            width: 1,
-                                          ),
-                                        ),
-                                      ),
+                                          color: Color(0xffe0e9f8),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          shape: BoxShape.rectangle,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey,
+                                              blurRadius: 3.0,
+                                            ),
+                                          ]),
+                                      margin:
+                                          EdgeInsets.only(left: 15, right: 15),
+                                      // padding: EdgeInsets.all(20),
+                                      width: MediaQuery.of(context).size.width *
+                                          1.0,
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -164,7 +265,7 @@ class _ProfileState extends State<Profile> {
                                                 child: Text(
                                                   snapshot.data!["email"],
                                                   style: TextStyle(
-                                                    fontSize: 16,
+                                                    fontSize: 18,
                                                     height: 1.4,
                                                     color: Colors.black,
                                                   ),
@@ -184,33 +285,45 @@ class _ProfileState extends State<Profile> {
                                 )),
                             ////
 
-                            SizedBox(
-                              height: 15,
-                            ),
+                            // SizedBox(
+                            //   height: 15,
+                            // ),
                             Padding(
                                 padding: EdgeInsets.only(bottom: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Phone No.',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xff347af0),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 3),
+                                      child: Text(
+                                        'Phone No.',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff347af0),
+                                        ),
                                       ),
                                     ),
                                     Container(
-                                        width: 350,
-                                        height: 40,
+                                        height: 50,
                                         decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Colors.grey,
-                                              width: 1,
-                                            ),
-                                          ),
-                                        ),
+                                            color: Color(0xffe0e9f8),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            shape: BoxShape.rectangle,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                blurRadius: 3.0,
+                                              ),
+                                            ]),
+                                        margin: EdgeInsets.only(
+                                            left: 15, right: 15),
+                                        // padding: EdgeInsets.all(20),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                1.0,
                                         child: Row(children: [
                                           Expanded(
                                             child: TextButton(
@@ -222,7 +335,7 @@ class _ProfileState extends State<Profile> {
                                                 child: Text(
                                                   snapshot.data!["phone"],
                                                   style: TextStyle(
-                                                    fontSize: 16,
+                                                    fontSize: 18,
                                                     height: 1.4,
                                                     color: Colors.black,
                                                   ),
@@ -238,31 +351,51 @@ class _ProfileState extends State<Profile> {
                                         ]))
                                   ],
                                 )),
-                            SizedBox(
-                              height: 20,
-                            ),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
                             Padding(
                               padding: EdgeInsets.only(bottom: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Bio',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff347af0),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, bottom: 3),
+                                    child: Text(
+                                      'Bio',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xff347af0),
+                                      ),
                                     ),
                                   ),
                                   Container(
-                                    width: 350,
                                     height: 150,
                                     decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                      color: Colors.grey,
-                                      width: 1,
-                                    ))),
+                                        color: Color(0xffe0e9f8),
+                                        borderRadius: BorderRadius.circular(20),
+                                        shape: BoxShape.rectangle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 3.0,
+                                          ),
+                                        ]),
+                                    margin:
+                                        EdgeInsets.only(left: 15, right: 15),
+                                    // padding: EdgeInsets.all(20),
+                                    width:
+                                        MediaQuery.of(context).size.width * 1.0,
+                                    // width: 350,
+                                    // height: 150,
+                                    // decoration: BoxDecoration(
+                                    //     border: Border(
+                                    //         bottom: BorderSide(
+                                    //   color: Colors.grey,
+                                    //   width: 1,
+                                    // ))),
                                     child: Padding(
                                       padding:
                                           const EdgeInsets.fromLTRB(0, 5, 0, 5),

@@ -28,8 +28,14 @@ class _CoinTrackerScreenState extends State<CoinTrackerScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffe0e9f8),
-        title: Text("Markets", style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        title: Text("Markets",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 24.0,
+            )),
+        elevation: 0,
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -50,9 +56,9 @@ class _CoinTrackerScreenState extends State<CoinTrackerScreen>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Today's Crypto Price",
+                    "Realtime crypto price",
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
