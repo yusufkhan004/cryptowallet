@@ -383,7 +383,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       SizedBox(height: 20),
-                                      Row(
+                                      Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
@@ -413,40 +413,7 @@ class _HomePageState extends State<HomePage> {
                                           //     ],
                                           //   ),
                                           // ),
-                                          new ElevatedButton(
-                                            onPressed: () {
-                                              sendCoin();
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Color(0xffe0e9f8),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Icon(
-                                                      FontAwesomeIcons
-                                                          .arrowAltCircleUp,
-                                                      color: Colors.black,
-                                                      size: 24.0,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 7,
-                                                    ),
-                                                    Text("Receive",
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black,
-                                                        )),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+
                                           new ElevatedButton(
                                             onPressed: () {
                                               receiveCoin();
@@ -461,7 +428,7 @@ class _HomePageState extends State<HomePage> {
                                                   children: <Widget>[
                                                     Icon(
                                                       FontAwesomeIcons
-                                                          .arrowAltCircleDown,
+                                                          .arrowAltCircleUp,
                                                       color: Colors.black,
                                                       size: 24.0,
                                                     ),
@@ -470,7 +437,7 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                     Text("Send",
                                                         style: TextStyle(
-                                                          fontSize: 20,
+                                                          fontSize: 25,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           color: Colors.black,
@@ -522,6 +489,43 @@ class _HomePageState extends State<HomePage> {
                                                     //     ],
                                                     //   ),
                                                     // ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          new ElevatedButton(
+                                            onPressed: () {
+                                              sendCoin();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Color(0xffe0e9f8),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8.0, bottom: 8.0),
+                                              child: Center(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      FontAwesomeIcons
+                                                          .arrowAltCircleDown,
+                                                      color: Colors.black,
+                                                      size: 24.0,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 7,
+                                                    ),
+                                                    Text("Receive",
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        )),
                                                   ],
                                                 ),
                                               ),

@@ -1,4 +1,5 @@
 import 'package:cryptowallet/model/user_model.dart';
+import 'package:cryptowallet/pages/sign_in/sign_in_page.dart';
 import 'package:cryptowallet/utils/items.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class WelcomePage extends StatelessWidget {
           maxWidth: MediaQuery.of(context).size.width,
           maxHeight: MediaQuery.of(context).size.height),
       designSize: const Size(360, 690),
+      context: context,
       minTextAdapt: true,
     );
     // ScreenUtil.init(context,
@@ -28,7 +30,13 @@ class WelcomePage extends StatelessWidget {
             alignment: Alignment.center,
             width: ScreenUtil().setWidth(45),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SignInPage(),
+                  ),
+                );
+              },
               child: Text(
                 'skip',
                 style: TextStyle(
@@ -117,7 +125,13 @@ class WelcomePage extends StatelessWidget {
                                 _pageViewController.animateToPage(index + 1,
                                     duration: const Duration(milliseconds: 500),
                                     curve: Curves.ease);
-                              } else {}
+                              } else {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => SignInPage(),
+                                  ),
+                                );
+                              }
                             },
                             color: index != 3
                                 ? Colors.transparent

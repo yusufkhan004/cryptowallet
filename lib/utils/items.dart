@@ -1,7 +1,7 @@
 class Items {
   static const welcomeData = [
     {
-      'title': 'Welcome\nto\nBitWallet',
+      'title': 'Welcome\nto\nCW Wallet',
       'text': 'Manage all your crypto assets! it\'s simple\nand easy!',
       'image': 'assets/images/desktop.png',
     },
